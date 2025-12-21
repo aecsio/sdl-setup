@@ -6,6 +6,6 @@ cmake -S . -B build
 cmake --build build
 
 echo ""
-echo "Build complete. Libraries are in build/bin"
-echo "To install globally, run:"
-echo "sudo cmake --install build"
+echo "Installing globally..."
+sudo cmake --install build
+sudo ldconfig

@@ -25,14 +25,23 @@ set(SDLIMAGE_CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH
 set(SDLTTF_VENDORED ON)
 set(SDLIMAGE_VENDORED ON)
 
+# Enable installation for SDL_image
+set(SDLIMAGE_INSTALL ON CACHE BOOL "" FORCE)
+
+# Enable installation for SDL and SDL_ttf
+set(SDL_INSTALL ON CACHE BOOL "" FORCE)
+set(SDLTTF_INSTALL ON CACHE BOOL "" FORCE)
+# Ensure static libraries don't skip install if they are built
+set(SKIP_INSTALL_LIBRARIES OFF CACHE BOOL "" FORCE)
+
 # Disable AVIF to avoid NASM dependency
 set(SDLIMAGE_AVIF OFF CACHE BOOL "" FORCE)
 
 # This assumes the SDL source is available in vendored/SDL
-add_subdirectory(SDL EXCLUDE_FROM_ALL)
+add_subdirectory(SDL)
 
 # This assumes the SDL_ttf source is available in vendored/SDL_ttf
-add_subdirectory(SDL_ttf EXCLUDE_FROM_ALL)
+add_subdirectory(SDL_ttf)
 
 # This assumes the SDL_image source is available in vendored/SDL_image
 add_subdirectory(SDL_image)
