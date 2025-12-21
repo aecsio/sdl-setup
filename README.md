@@ -9,8 +9,17 @@ sudo apt install build-essential cmake
 
 download latest [SDL 3.x release](https://github.com/libsdl-org/SDL/releases)
 
-auto setup.sh
 
+UPDATE
+```sh
+git submodule update --init --recursive --depth 1
+```
+
+build:
+```sh
+cmake -S . -B build
+cmake --build build
+```
 
 update the dynamic linker cache after build
 
@@ -18,12 +27,16 @@ update the dynamic linker cache after build
 sudo ldconfig
 ```
 
-./SDL_ttf/external/download.sh
+---
 
-git submodule update --init --recursive --depth 1
-
+created submodules using:
+```sh
 git submodule add --depth 1 git@github.com:libsdl-org/SDL.git 
 git submodule add --depth 1 git@github.com:libsdl-org/SDL_ttf.git
+git submodule add --depth 1 git@github.com:libsdl-org/SDL_image.git
+```
 
-cmake -S . -B build
-cmake --build build
+Resolve external TTF deps
+```sh
+./SDL_ttf/external/download.sh
+```
