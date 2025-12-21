@@ -43,4 +43,5 @@ Created submodules using:
 git submodule add --depth 1 git@github.com:libsdl-org/SDL.git 
 git submodule add --depth 1 git@github.com:libsdl-org/SDL_ttf.git
 git submodule add --depth 1 git@github.com:libsdl-org/SDL_image.git
+git submodule add --depth 1 https://github.com/libsdl-org/SDL_mixer.git
 ```

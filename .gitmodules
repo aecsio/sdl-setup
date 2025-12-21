@@ -7,3 +7,6 @@
 [submodule "SDL_image"]
 	path = SDL_image
 	url = git@github.com:libsdl-org/SDL_image.git
+[submodule "SDL_mixer"]
+	path = SDL_mixer
+	url = https://github.com/libsdl-org/SDL_mixer.git

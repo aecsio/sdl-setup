@@ -5,7 +5,7 @@ This repository is a unified builder for SDL3 and its satellite libraries (SDL_i
 ## Behavioral Rules
 
 1.  **Dependency Management**:
-    *   **Always** treat `SDL/`, `SDL_image/`, and `SDL_ttf/` as source submodules.
+    *   **Always** treat `SDL/`, `SDL_image/`, `SDL_ttf/`, and `SDL_mixer/` as source submodules.
     *   **Never** suggest installing system packages (e.g., `apt install libsdl3-dev`).
     *   **Rolling Release**: Always prefer building from the **latest commit** (`HEAD`) of the submodules.
 
@@ -14,3 +14,8 @@ This repository is a unified builder for SDL3 and its satellite libraries (SDL_i
     *   Use `setup.sh` for full setup and build.
     *   Use `download_deps.sh` for fetching dependencies.
     *   Do not invent new build procedures; strictly follow the patterns in these files.
+
+3.  **Submodule Integrity**:
+    *   **NEVER** modify files within submodules directly.
+    *   **Git Modules**: Everything must be managed from the root `.gitmodules`.
+    *   **Downloads**: Do not modify or run submodule download scripts (e.g., `SDL_ttf/external/download.sh`) directly. Only use the root `./download_deps.sh`.

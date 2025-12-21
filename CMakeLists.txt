@@ -21,12 +21,19 @@ set(SDLIMAGE_CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH
 set(SDLIMAGE_CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH "" FORCE)
 set(SDLIMAGE_CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH "" FORCE)
 
+# Override output directories for SDL_mixer
+set(SDLMIXER_CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH "" FORCE)
+set(SDLMIXER_CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH "" FORCE)
+set(SDLMIXER_CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH "" FORCE)
+
 # Use vendored libs
 set(SDLTTF_VENDORED ON)
 set(SDLIMAGE_VENDORED ON)
+set(SDLMIXER_VENDORED ON)
 
 # Enable installation for SDL_image
 set(SDLIMAGE_INSTALL ON CACHE BOOL "" FORCE)
+set(SDLMIXER_INSTALL ON CACHE BOOL "" FORCE)
 
 # Enable installation for SDL and SDL_ttf
 set(SDL_INSTALL ON CACHE BOOL "" FORCE)
@@ -45,3 +52,6 @@ add_subdirectory(SDL_ttf)
 
 # This assumes the SDL_image source is available in vendored/SDL_image
 add_subdirectory(SDL_image)
+
+# This assumes the SDL_mixer source is available in vendored/SDL_mixer
+add_subdirectory(SDL_mixer)
