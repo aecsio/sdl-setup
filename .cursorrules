@@ -1,0 +1,16 @@
+# Project Context: SDL3 Meta-Builder
+
+This repository is a unified builder for SDL3 and its satellite libraries (SDL_image, SDL_ttf).
+
+## Behavioral Rules
+
+1.  **Dependency Management**:
+    *   **Always** treat `SDL/`, `SDL_image/`, and `SDL_ttf/` as source submodules.
+    *   **Never** suggest installing system packages (e.g., `apt install libsdl3-dev`).
+    *   **Rolling Release**: Always prefer building from the **latest commit** (`HEAD`) of the submodules.
+
+2.  **Build & Scripts**:
+    *   Use `CMakeLists.txt` for build configuration.
+    *   Use `setup.sh` for full setup and build.
+    *   Use `download_deps.sh` for fetching dependencies.
+    *   Do not invent new build procedures; strictly follow the patterns in these files.
