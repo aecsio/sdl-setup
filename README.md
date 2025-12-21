@@ -10,33 +10,28 @@ sudo apt install build-essential cmake
 download latest [SDL 3.x release](https://github.com/libsdl-org/SDL/releases)
 
 
-UPDATE
+UPDATE submodules:
 ```sh
 git submodule update --init --recursive --depth 1
 ```
 
-build:
+Build everything (SDL3, SDL_ttf, SDL_image) and download dependencies:
 ```sh
-cmake -S . -B build
-cmake --build build
+./setup.sh
 ```
 
-update the dynamic linker cache after build
+This will build the libraries in `build/bin`.
 
+To install globally (optional):
 ```sh
-sudo ldconfig
+sudo cmake --install build
 ```
 
 ---
 
-created submodules using:
+Created submodules using:
 ```sh
 git submodule add --depth 1 git@github.com:libsdl-org/SDL.git 
 git submodule add --depth 1 git@github.com:libsdl-org/SDL_ttf.git
 git submodule add --depth 1 git@github.com:libsdl-org/SDL_image.git
-```
-
-Resolve external TTF deps
-```sh
-./SDL_ttf/external/download.sh
 ```

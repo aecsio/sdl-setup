@@ -16,11 +16,23 @@ set(SDLTTF_CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH "
 set(SDLTTF_CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH "" FORCE)
 set(SDLTTF_CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH "" FORCE)
 
+# Override output directories for SDL_image
+set(SDLIMAGE_CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH "" FORCE)
+set(SDLIMAGE_CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH "" FORCE)
+set(SDLIMAGE_CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" CACHE PATH "" FORCE)
+
 # Use vendored libs
 set(SDLTTF_VENDORED ON)
+set(SDLIMAGE_VENDORED ON)
+
+# Disable AVIF to avoid NASM dependency
+set(SDLIMAGE_AVIF OFF CACHE BOOL "" FORCE)
 
 # This assumes the SDL source is available in vendored/SDL
 add_subdirectory(SDL EXCLUDE_FROM_ALL)
 
 # This assumes the SDL_ttf source is available in vendored/SDL_ttf
 add_subdirectory(SDL_ttf EXCLUDE_FROM_ALL)
+
+# This assumes the SDL_image source is available in vendored/SDL_image
+add_subdirectory(SDL_image)
