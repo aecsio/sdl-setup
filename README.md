@@ -13,7 +13,12 @@ download latest [SDL 3.x release](https://github.com/libsdl-org/SDL/releases)
 UPDATE submodules:
 
 ```sh
-git submodule update --init --recursive --remote
+git submodule update --remote --recursive --force --depth 1
+```
+
+```sh
+git submodule update --init --recursive --remote --depth 1
+
 ```
 ```sh
 git submodule update --init --recursive --depth 1
