@@ -46,8 +46,16 @@ case "$family" in
         ;;
 esac
 
+# Package lists must be current, or apt cannot locate the packages on a fresh system.
+pre=()
+case "${cmd[0]}" in apt-get) pre=(apt-get update) ;; esac
+
+sudo=()
+[ "$(id -u)" = 0 ] || sudo=(sudo)
 if [ "${1:-}" = "--install" ]; then
-    if [ "$(id -u)" = 0 ]; then "${cmd[@]}"; else sudo "${cmd[@]}"; fi
+    if [ "${#pre[@]}" -gt 0 ]; then "${sudo[@]}" "${pre[@]}"; fi
+    "${sudo[@]}" "${cmd[@]}"
 else
+    if [ "${#pre[@]}" -gt 0 ]; then echo "sudo ${pre[*]}"; fi
     echo "sudo ${cmd[*]}"
 fi

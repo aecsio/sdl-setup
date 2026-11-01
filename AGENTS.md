@@ -20,8 +20,12 @@ SDL3_mixer from source, so build tools can find them through pkg-config and CMak
    commits that release pins; do not run the satellites' `external/download.sh`.
 4. **Keep the flow:** `fetch.sh` → `build.sh` → `install.sh` → `verify.sh`, chained by
    `setup.sh`. Shared helpers and settings loading belong in `scripts/common.sh`.
+   Per-library facts (pkg-config name, header, version function, CMake flags,
+   unused submodules) live in the `lib_*` helpers and `ALL_LIBS` there; add a library
+   by extending those, not by adding `case` blocks to other scripts.
 5. **Build as a normal user.** Only `install.sh`/`uninstall.sh` may escalate, and only
-   through `as_installer` when `PREFIX` is not writable.
+   through `as_installer` when `PREFIX` is not writable. The one other exception is
+   `deps.sh --install`, which installs system build dependencies with the package manager.
 6. **Settings precedence:** environment > `.env.local` > `.env`.
 7. **Check changes:** run `shellcheck -x -P scripts setup.sh scripts/*.sh` and keep it
    clean. After changing build options, run `./setup.sh` and make sure `verify.sh`

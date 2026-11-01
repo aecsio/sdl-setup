@@ -1,22 +1,16 @@
 #!/usr/bin/env bash
-# Removes exactly the files the last install wrote, as recorded by CMake in
-# build/<lib>/install_manifest.txt.
+# Removes every file sdl-setup ever installed into PREFIX, as recorded by
+# install.sh in $PREFIX/share/sdl-setup/<lib>.manifest.
 source "$(dirname "$0")/common.sh"
 
-found=0
-for lib in SDL_mixer SDL_ttf SDL_image SDL; do
-    manifest="$BUILD_DIR/$lib/install_manifest.txt"
-    [ -f "$manifest" ] || continue
-    found=1
-    log "$lib: removing $(wc -l < "$manifest" | tr -d ' ') files"
-    while IFS= read -r file || [ -n "$file" ]; do
-        if [ -e "$file" ] || [ -L "$file" ]; then
-            as_installer rm -f "$file"
-        fi
-    done < "$manifest"
-done
-[ "$found" = 1 ] || die "no install manifests in build/; nothing to uninstall"
+shopt -s nullglob
+records=("$MANIFEST_DIR"/*.manifest)
+[ "${#records[@]}" -gt 0 ] || die "nothing recorded in $MANIFEST_DIR; nothing to uninstall"
 
-if ! is_macos && is_system_prefix && command -v ldconfig >/dev/null; then
-    as_installer ldconfig
-fi
+for record in "${records[@]}"; do
+    log "$(basename "$record" .manifest): removing $(wc -l < "$record" | tr -d ' ') files"
+    tr '\n' '\0' < "$record" | as_installer xargs -0 rm -f --
+done
+as_installer rm -rf "$MANIFEST_DIR"
+
+refresh_loader_cache

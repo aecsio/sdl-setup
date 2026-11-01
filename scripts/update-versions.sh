@@ -13,8 +13,8 @@ latest_stable_tag() {
 }
 
 changed=0
-for lib in SDL SDL_image SDL_ttf SDL_mixer; do
-    var="$(tag_var "$lib")"
+for lib in "${ALL_LIBS[@]}"; do
+    var="$(lib_var "$lib")"
     current="$(grep -E "^$var=" "$ROOT/.env" | cut -d= -f2- || true)"
     latest="$(latest_stable_tag "$lib")"
     [ -n "$latest" ] || die "could not find a stable release tag for $lib"
@@ -24,7 +24,6 @@ for lib in SDL SDL_image SDL_ttf SDL_mixer; do
         log "$lib: ${current:-unset} -> $latest"
         tmp="$(mktemp)"
         awk -v k="$var" -v v="$latest" '
-            BEGIN { done = 0 }
             $0 ~ "^" k "=" { print k "=" v; done = 1; next }
             { print }
             END { if (!done) print k "=" v }

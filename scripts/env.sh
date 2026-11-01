@@ -8,6 +8,6 @@ if is_macos; then
 else
     loader=LD_LIBRARY_PATH
 fi
-echo "export PKG_CONFIG_PATH=\"$PREFIX/lib/pkgconfig\${PKG_CONFIG_PATH:+:\$PKG_CONFIG_PATH}\""
+echo "export PKG_CONFIG_PATH=\"$PREFIX/$LIBDIR/pkgconfig\${PKG_CONFIG_PATH:+:\$PKG_CONFIG_PATH}\""
 echo "export CMAKE_PREFIX_PATH=\"$PREFIX\${CMAKE_PREFIX_PATH:+:\$CMAKE_PREFIX_PATH}\""
-echo "export $loader=\"$PREFIX/lib\${$loader:+:\$$loader}\""
+echo "export $loader=\"$PREFIX/$LIBDIR\${$loader:+:\$$loader}\""
