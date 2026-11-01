@@ -12,8 +12,11 @@ for lib in $(ordered_libs); do
     # Merge with earlier installs: files from older versions stay recorded.
     record="$MANIFEST_DIR/$lib.manifest"
     as_installer mkdir -p "$MANIFEST_DIR"
-    { cat "$BUILD_DIR/$lib/install_manifest.txt"; echo; [ -f "$record" ] && cat "$record"; } \
-        | sed '/^$/d' | sort -u | as_installer tee "$record.new" > /dev/null
+    {
+        cat "$BUILD_DIR/$lib/install_manifest.txt"
+        echo
+        if [ -f "$record" ]; then cat "$record"; fi
+    } | sed '/^$/d' | sort -u | as_installer tee "$record.new" > /dev/null
     as_installer mv "$record.new" "$record"
 done
 
