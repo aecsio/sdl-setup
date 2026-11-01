@@ -9,7 +9,7 @@ for lib in SDL_mixer SDL_ttf SDL_image SDL; do
     [ -f "$manifest" ] || continue
     found=1
     log "$lib: removing $(wc -l < "$manifest" | tr -d ' ') files"
-    while IFS= read -r file; do
+    while IFS= read -r file || [ -n "$file" ]; do
         if [ -e "$file" ] || [ -L "$file" ]; then
             as_installer rm -f "$file"
         fi

@@ -13,9 +13,16 @@ fi
 common_flags=(
     -DCMAKE_BUILD_TYPE="$BUILD_TYPE"
     -DCMAKE_INSTALL_PREFIX="$PREFIX"
-    # Lets installed libraries find each other in non-system prefixes.
-    -DCMAKE_INSTALL_RPATH="$PREFIX/lib"
 )
+if is_system_prefix; then
+    # The loader already searches system prefixes; skip the rpath SDL would
+    # otherwise put into sdl3.pc (SwiftPM rejects it with a warning).
+    common_flags+=(-DSDL_RPATH=OFF)
+else
+    # Lets installed libraries, and programs linked through sdl3.pc, find
+    # each other in a prefix the loader does not search.
+    common_flags+=(-DCMAKE_INSTALL_RPATH="$PREFIX/lib" -DSDL_RPATH=ON)
+fi
 
 lib_flags() {
     case "$1" in
